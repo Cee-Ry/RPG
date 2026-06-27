@@ -3,13 +3,25 @@
 void close_window(sf::RenderWindow &window);
 
 int main() {
+  const float WIDTH = 1366.0f;
+  const float HEIGHT = 768.0f;
+  
   sf::RenderWindow window;
-  window.create(sf::VideoMode({1366, 768}), "RougeLIke");
+  window.create(sf::VideoMode({(int)WIDTH, (int)HEIGHT}), "RougeLIke");
+  
+  sf::Texture background;
+
+  if (!background.loadFromFile("assets/textures/backgrounds/bg.png")) return -1;
+
+  sf::Sprite background_sprite(background);
+
+  background_sprite.setScale(sf::Vector2f(WIDTH / background.getSize().x, HEIGHT / background.getSize().y));
 
   while(window.isOpen()) {
     close_window(window);
 
     window.clear(sf::Color::Black);
+    window.draw(background_sprite);
     window.display();
   }
 
